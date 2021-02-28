@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"react100_server/controllers/auth"
+	"react100_server/controllers/profile"
 	"react100_server/controllers/user"
 )
 
@@ -23,6 +24,8 @@ func main() {
 
 	r.Route("/api/1.0/", func(r chi.Router) {
 		r.Get("/auth/me", auth.AuthHandler)
+
+		r.Get("/profile/{id}", profile.GetProfile)
 
 		r.Route("/users", func(r chi.Router) {
 		  r.Get("/", user.GetUsers)
