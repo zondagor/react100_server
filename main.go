@@ -25,7 +25,12 @@ func main() {
 	r.Route("/api/1.0/", func(r chi.Router) {
 		r.Get("/auth/me", auth.AuthHandler)
 
-		r.Get("/profile/{id}", profile.GetProfile)
+
+		r.Route("/profile", func(r chi.Router) {
+			r.Get("/{id}", profile.GetProfile)
+			r.Get("/status/{id}", profile.GetUserStatus)
+			r.Put("/status/{id}", profile.UpdateUserStatus)
+		})
 
 		r.Route("/users", func(r chi.Router) {
 		  r.Get("/", user.GetUsers)
