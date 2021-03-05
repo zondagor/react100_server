@@ -23,8 +23,12 @@ func main() {
 	}))
 
 	r.Route("/api/1.0/", func(r chi.Router) {
-		r.Get("/auth/me", auth.AuthHandler)
 
+		r.Route("/auth", func(r chi.Router) {
+			r.Get("/me", auth.AuthHandler)
+			r.Post("/login", auth.LoginHandler)
+			r.Delete("/login", auth.LogoutHandler)
+		})
 
 		r.Route("/profile", func(r chi.Router) {
 			r.Get("/{id}", profile.GetProfile)
@@ -45,4 +49,3 @@ func main() {
 }
 
 // http://localhost:8081/api/1.0/users?page=1&count=5
-

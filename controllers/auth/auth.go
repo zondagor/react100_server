@@ -32,3 +32,25 @@ func AuthHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(resJSON)
 }
+
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	resJSON, err := json.Marshal(struct{ResultCode byte} {ResultCode: 0})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(resJSON)
+}
+
+func LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	resJSON, err := json.Marshal(struct{ResultCode byte} {ResultCode: 0})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(resJSON)
+}

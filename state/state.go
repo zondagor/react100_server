@@ -13,7 +13,7 @@ var Users = []User{
 		Id:       1,
 		Followed: false,
 		Name:     "bro",
-		Status:   "single",
+		Status:   "zzzzzzz",
 		Photos:   struct{ Small string }{Small: "https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/10/golang.png?fit=730%2C412&ssl=1"},
 	},
 	{
@@ -41,14 +41,14 @@ var Users = []User{
 		Id:       5,
 		Followed: false,
 		Name:     "foxie",
-		Status:   "single",
+		Status:   "jjjjjjj",
 		Photos:   struct{ Small string }{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
 	},
 	{
 		Id:       6,
 		Followed: false,
 		Name:     "bobbie",
-		Status:   "single",
+		Status:   "mmmmmmm",
 		Photos:   struct{ Small string }{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
 	},
 	{
