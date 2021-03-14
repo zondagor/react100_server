@@ -34,6 +34,7 @@ func main() {
 			r.Get("/{id}", profile.GetProfile)
 			r.Get("/status/{id}", profile.GetUserStatus)
 			r.Put("/status/{id}", profile.UpdateUserStatus)
+			r.Put("/photo", profile.UpdateUserPhoto)
 		})
 
 		r.Route("/users", func(r chi.Router) {

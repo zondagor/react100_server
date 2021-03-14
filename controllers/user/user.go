@@ -47,9 +47,9 @@ func FollowUser(w http.ResponseWriter, r *http.Request) {
 	startIndexOfId := strings.LastIndex(urlPath, "/") + 1
 	userId, _ :=  strconv.Atoi(urlPath[startIndexOfId:])
 
-	state.Users[userId - 1].Followed = true
+	state.Users[userId].Followed = true
 
-	res := struct {ResultCode int} {
+	res := struct {ResultCode int `json:"resultCode"`} {
 		ResultCode: 0,
 	}
 
@@ -68,7 +68,7 @@ func UnFollowUser(w http.ResponseWriter, r *http.Request) {
 	startIndexOfUserId := strings.LastIndex(urlPath, "/") + 1
 	userId, _ :=  strconv.Atoi(urlPath[startIndexOfUserId:])
 
-	state.Users[userId - 1].Followed = false
+	state.Users[userId].Followed = false
 
 	res := struct {ResultCode int} {
 		ResultCode: 0,

@@ -13,7 +13,7 @@ func GetProfile(w http.ResponseWriter, r *http.Request) {
 	startIndexOfId := strings.LastIndex(urlPath, "/") + 1
 	userId, _ :=  strconv.Atoi(urlPath[startIndexOfId:])
 
-	res := state.Users[userId - 1]
+	res := state.Users[userId]
 
 	resJSON, err := json.Marshal(res)
 	if err != nil {
@@ -30,9 +30,9 @@ func GetUserStatus(w http.ResponseWriter, r *http.Request) {
 	startIndexOfId := strings.LastIndex(urlPath, "/") + 1
 	userId, _ :=  strconv.Atoi(urlPath[startIndexOfId:])
 
-	status := state.Users[userId - 1].Status
+	status := state.Users[userId].Status
 
-	resJSON, err := json.Marshal(struct {ResultCode byte; UserStatus string}{0,status})
+	resJSON, err := json.Marshal(struct {ResultCode byte `json:"resultCode"`; UserStatus string}{0,status})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -55,9 +55,26 @@ func UpdateUserStatus(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newStatus := userStatusFromFrontEnd.Status;
-	state.Users[userId - 1].Status = newStatus;
+	state.Users[userId].Status = newStatus;
 
-	resJSON, err := json.Marshal(struct {ResultCode byte; UserStatus string}{0,newStatus})
+	resJSON, err := json.Marshal(struct {ResultCode byte `json:"resultCode"`; UserStatus string}{0,newStatus})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(resJSON)
+}
+
+func UpdateUserPhoto(w http.ResponseWriter, r *http.Request) {
+	type photo struct{ Small string }
+
+	resJSON, err := json.Marshal(struct {
+		ResultCode byte `json:"resultCode"`;
+		Photos photo `json:"photos"`
+	} {0,photo{"https://softensy.com/wp-content/uploads/2020/06/golang-advantages-and-disadvantages.png"}})
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

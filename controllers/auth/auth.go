@@ -1,20 +1,19 @@
 package auth
 
 import (
-	// "fmt"
 	"encoding/json"
 	"net/http"
 )
 
 type authData struct {
-	Id    int
-	Email string
-	Login string
+	Id    int    `json:"userId"`
+	Email string `json:"email"`
+	Login string `json:"login"`
 }
 
 type response struct {
-	ResultCode int
-	Data       authData
+	ResultCode int      `json:"resultCode"`
+	Data       authData `json:"data"`
 }
 
 func AuthHandler(w http.ResponseWriter, r *http.Request) {
@@ -34,7 +33,9 @@ func AuthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
-	resJSON, err := json.Marshal(struct{ResultCode byte} {ResultCode: 0})
+	resJSON, err := json.Marshal(struct {
+		Res byte `json:"resultCode"`
+	}{0})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -45,7 +46,9 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
-	resJSON, err := json.Marshal(struct{ResultCode byte} {ResultCode: 0})
+	resJSON, err := json.Marshal(struct {
+		Res byte `json:"resultCode"`
+	}{0})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
