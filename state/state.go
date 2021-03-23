@@ -1,100 +1,87 @@
 package state
 
-type photosStruc struct {
+type photos struct {
 	Small string `json:"small"`
+	Large string `json:"large"`
+}
+
+type contacts struct {
+	Github    string `json:"github"`
+	Youtube   string `json:"youtube"`
+	Twitter   string `json:"twitter"`
+	Instagram string `json:"instagram"`
 }
 
 type User struct {
-	Id       int         `json:"id"`
-	Photos   photosStruc `json:"photos"`
-	Followed bool        `json:"followed"`
-	Name     string      `json:"name"`
-	Status   string      `json:"status"`
+	Id                        int      `json:"id"`
+	Followed                  bool     `json:"followed"`
+	LookingForAJob            bool     `json:"lookingForAJob"`
+	Name                      string   `json:"name"`
+	FullName                  string   `json:"fullName"`
+	Status                    string   `json:"status"`
+	AboutMe                   string   `json:"aboutMe"`
+	LookingForAJobDescription string   `json:"lookingForAJobDescription"`
+	Contacts                  contacts `json:"contacts"`
+	Photos                    photos   `json:"photos"`
 }
 
-var Users = []User{
-	{
-		Id:       0,
-		Followed: false,
-		Name:     "bro",
-		Status:   "zzzzzzz",
-		Photos:   photosStruc{"https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/10/golang.png?fit=730%2C412&ssl=1"},
-	},
-	{
-		Id:       1,
-		Followed: false,
-		Name:     "igor",
-		Status:   "uuuu",
-		Photos:   photosStruc{Small: "https://computingforgeeks.com/wp-content/uploads/2018/09/install-latest-golang-centos7-ubuntu-18.04-01.png"},
-	},
-	{
-		Id:       2,
-		Followed: false,
-		Name:     "igor",
-		Status:   "ssssss",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       3,
-		Followed: false,
-		Name:     "igor",
-		Status:   "vvvvvvv",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       4,
-		Followed: false,
-		Name:     "foxie",
-		Status:   "jjjjjjj",
-		Photos:   photosStruc{""},
-	},
-	{
-		Id:       5,
-		Followed: false,
-		Name:     "bobbie",
-		Status:   "mmmmmmm",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       6,
-		Followed: false,
-		Name:     "igor",
-		Status:   "single",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       7,
-		Followed: false,
-		Name:     "igor",
-		Status:   "single",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       8,
-		Followed: false,
-		Name:     "igor",
-		Status:   "single",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       9,
-		Followed: false,
-		Name:     "igor",
-		Status:   "single",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       10,
-		Followed: false,
-		Name:     "igor",
-		Status:   "xxxxxxxx",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
-	{
-		Id:       11,
-		Followed: false,
-		Name:     "jasmin",
-		Status:   "mmmmmmmm",
-		Photos:   photosStruc{Small: "https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg"},
-	},
+var Users []User
+
+func createUser(
+	id int,
+	followed, lookingForAJob bool,
+	name, fullName, status, photo, aboutMe, lookingForAJobDescription string,
+) {
+	user := User{
+		Id:                        id,
+		Name:                      name,
+		FullName:                  fullName,
+		Status:                    status,
+		AboutMe:                   aboutMe,
+		Followed:                  followed,
+		LookingForAJob:            lookingForAJob,
+		LookingForAJobDescription: lookingForAJobDescription,
+		Photos:                    photos{Small: photo},
+		Contacts: contacts{
+			Github:    "https://github.com",
+			Youtube:   "https://youtube.com",
+			Instagram: "https://instagram.com",
+			Twitter:   "https://twitter.com",
+		},
+	}
+	Users = append(Users, user)
 }
+
+func InitTempState() {
+	Users = make([]User, 0, 12)
+
+	createUser(0, false, true, "igor", "igor valerievich", "single",
+		"https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/10/golang.png?fit=730%2C412&ssl=1",
+		"cool guy", "html=))")
+
+	createUser(1, false, true, "igor", "igor valerievich", "single",
+		"https://computingforgeeks.com/wp-content/uploads/2018/09/install-latest-golang-centos7-ubuntu-18.04-01.png",
+		"cool guy", "html=))")
+
+	createUser(2, false, true, "igor", "igor valerievich", "single",
+		"https://upload.wikimedia.org/wikipedia/commons/1/1c/Dmitry_Nagiev_2017_3.jpg",
+		"cool guy", "html=))")
+
+	createUser(3, false, true, "igor", "igor valerievich", "single",
+		"https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/10/golang.png?fit=730%2C412&ssl=1",
+		"cool guy", "html=))")
+
+	createUser(4, false, true, "igor", "igor valerievich", "single",
+		"https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/10/golang.png?fit=730%2C412&ssl=1",
+		"cool guy", "html=))")
+
+	createUser(5, false, true, "igor", "igor valerievich", "single",
+		"https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/10/golang.png?fit=730%2C412&ssl=1",
+		"cool guy", "html=))")
+
+	createUser(6, false, true, "igor", "igor valerievich", "single",
+		"https://i0.wp.com/blog.logrocket.com/wp-content/uploads/2019/10/golang.png?fit=730%2C412&ssl=1",
+		"cool guy", "html=))")
+}
+
+// there were 12 users

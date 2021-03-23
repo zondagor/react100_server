@@ -32,7 +32,7 @@ func GetUserStatus(w http.ResponseWriter, r *http.Request) {
 
 	status := state.Users[userId].Status
 
-	resJSON, err := json.Marshal(struct {ResultCode byte `json:"resultCode"`; UserStatus string}{0,status})
+	resJSON, err := json.Marshal(struct {ResultCode byte `json:"resultCode"`; UserStatus string `json:"userStatus"`}{0,status})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -57,7 +57,7 @@ func UpdateUserStatus(w http.ResponseWriter, r *http.Request) {
 	newStatus := userStatusFromFrontEnd.Status;
 	state.Users[userId].Status = newStatus;
 
-	resJSON, err := json.Marshal(struct {ResultCode byte `json:"resultCode"`; UserStatus string}{0,newStatus})
+	resJSON, err := json.Marshal(struct {ResultCode byte `json:"resultCode"`; UserStatus string `json:"userStatus"`}{0,newStatus})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -68,7 +68,7 @@ func UpdateUserStatus(w http.ResponseWriter, r *http.Request) {
 }
 
 func UpdateUserPhoto(w http.ResponseWriter, r *http.Request) {
-	type photo struct{ Small string }
+	type photo struct{ Small string `json:"small"` }
 
 	resJSON, err := json.Marshal(struct {
 		ResultCode byte `json:"resultCode"`;

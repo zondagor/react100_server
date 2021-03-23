@@ -9,9 +9,12 @@ import (
 	"react100_server/controllers/auth"
 	"react100_server/controllers/profile"
 	"react100_server/controllers/user"
+	"react100_server/state"
 )
 
 func main() {
+	state.InitTempState()
+
 	r := chi.NewRouter()
 
 	r.Use(cors.Handler(cors.Options{
